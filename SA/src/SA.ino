@@ -194,7 +194,7 @@ void draw_Density(float density)
 {
     String dens;
     tft.setFont(Terminal12x16);
-    dens = String(density) + "ug/m^3";
+    dens = String(density) + "ug";
     tft.drawText(22, 10, dens);
 }
 
@@ -243,14 +243,13 @@ void loop()
     else
         mapPot = 4;
 
-    
     for (int i = 0; i < 20; i++)
     {
         avr += checkDust();
         delay(1);
     }
     density = avr / 20;
-    draw_Density(density);
+    draw_Density(int(density));
 
     //-------------------------------------------------------------------------------------------------------
     //미세먼지 농도 RGB표시
@@ -271,7 +270,7 @@ void loop()
         tft.fillCircle(12, 16, 5, COLOR_RED);
     }
     //-------------------------------------------------------------------------------------------------------
-    
+
     //-------------------------------------------------------------------------------------------------------
     // 수동 조정
     switch (mapPot)
@@ -298,10 +297,10 @@ void loop()
         break;
     }
     //-------------------------------------------------------------------------------------------------------
-    unsigned int rpms = fan.getSpeed(); 
-
-    String RPM = String(rpms) + "RPM";
-    tft.drawText(17, 50, RPM);
+    unsigned int rpms = fan.getSpeed();
+    String RPM = String(rpms) + "rpm";
+    tft.drawText(130, 10, RPM);
+    
     if (!mapPot)
     {
         draw_AUTO();
